@@ -12,19 +12,38 @@
 /* harmony import */ var _node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(645);
 /* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(667);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2__);
 // Imports
 
 
+
+var ___CSS_LOADER_URL_IMPORT_0___ = new URL(/* asset import */ __webpack_require__(108), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_1___ = new URL(/* asset import */ __webpack_require__(420), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_2___ = new URL(/* asset import */ __webpack_require__(564), __webpack_require__.b);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
+var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_0___);
+var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_1___);
+var ___CSS_LOADER_URL_REPLACEMENT_2___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_2___);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, `body {
+___CSS_LOADER_EXPORT___.push([module.id, `@font-face {
+  font-family: baseFont;
+  src:url(${___CSS_LOADER_URL_REPLACEMENT_0___});
+  font-weight: 300;
+  font-style:normal;
+}
+
+body {
+  font-family:baseFont;
   display:grid;
   grid-template-rows:12vh 88vh;
   height: 100vh;
   width: 100vw;
   padding: 0;
   margin: 0;
+  line-height:1.1rem;
 }
+
 
 #banner {
   border-bottom: solid black 2px;
@@ -35,6 +54,8 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   height: 12vh;
   margin-bottom: 30px;
   box-shadow:0px 5px 10px gray;
+  position:sticky;
+  top:0;
 }
 
 #logo {
@@ -53,7 +74,12 @@ ___CSS_LOADER_EXPORT___.push([module.id, `body {
   margin: 20px 20px 7px 20px;
 }
 
+.selectedBtn {
+  color:rgb(68, 156, 156);
+}
+
 .navbuttons button {
+  font-family:baseFont;
   width: 100px;
   border: none;
   outline: none;
@@ -73,15 +99,45 @@ button:active {
   transition:all .1s;
 }
 
-#content {
-  display:grid;
-  grid-template-columns:1fr 3fr 1fr;
+
+.about,
+.contact {
+margin:auto;
+padding:15px 25px 15px 15px;
+width:80ch;
 }
 
-.about {
-  grid-column:2/3;
-  background-color:blue;
+.contact {
+  display:flex;
+  flex-direction: column;
+  align-items:center;
 }
+
+
+#email::before {
+  content:url(${___CSS_LOADER_URL_REPLACEMENT_1___});
+  position:relative;
+  margin-right:10px;
+  top:5px;
+}
+
+#phone::before {
+  content:url(${___CSS_LOADER_URL_REPLACEMENT_2___});
+  position:relative;
+  margin-right:10px;
+  top:5px;
+}
+
+.disappear {
+  opacity:0%;
+  transition:opacity 1.3s;
+}
+
+.reappear {
+  opacity:100%;
+  transition:opacity 1.3s;
+}
+
 
 @media screen and (max-width: 1100px) {
   .navbuttons {
@@ -98,6 +154,10 @@ button:active {
   .navbuttons button {
     font: 10p;
     width: 50px;
+  }
+
+  .about {
+    width:40ch;
   }
 }
 `, ""]);
@@ -194,6 +254,38 @@ module.exports = function (cssWithMappingToString) {
     }
   };
   return list;
+};
+
+/***/ }),
+
+/***/ 667:
+/***/ ((module) => {
+
+
+
+module.exports = function (url, options) {
+  if (!options) {
+    options = {};
+  }
+  if (!url) {
+    return url;
+  }
+  url = String(url.__esModule ? url.default : url);
+
+  // If url is already wrapped in quotes, remove them
+  if (/^['"].*['"]$/.test(url)) {
+    url = url.slice(1, -1);
+  }
+  if (options.hash) {
+    url += options.hash;
+  }
+
+  // Should url be wrapped?
+  // See https://drafts.csswg.org/css-values-3/#urls
+  if (/["'() \t\n]|(%20)/.test(url) || options.needQuotes) {
+    return "\"".concat(url.replace(/"/g, '\\"').replace(/\n/g, "\\n"), "\"");
+  }
+  return url;
 };
 
 /***/ }),
@@ -456,6 +548,27 @@ function styleTagTransform(css, styleElement) {
 }
 module.exports = styleTagTransform;
 
+/***/ }),
+
+/***/ 108:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "0951f668b7acba944df2.otf";
+
+/***/ }),
+
+/***/ 420:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "eee1baa73917a6ad8cc5.svg";
+
+/***/ }),
+
+/***/ 564:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "22904118b466d50710a6.svg";
+
 /***/ })
 
 /******/ 	});
@@ -483,6 +596,9 @@ module.exports = styleTagTransform;
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
+/******/ 	
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = __webpack_modules__;
 /******/ 	
 /************************************************************************/
 /******/ 	/* webpack/runtime/compat get default export */
@@ -547,6 +663,32 @@ module.exports = styleTagTransform;
 /******/ 		if (!scriptUrl) throw new Error("Automatic publicPath is not supported in this browser");
 /******/ 		scriptUrl = scriptUrl.replace(/#.*$/, "").replace(/\?.*$/, "").replace(/\/[^\/]+$/, "/");
 /******/ 		__webpack_require__.p = scriptUrl;
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/jsonp chunk loading */
+/******/ 	(() => {
+/******/ 		__webpack_require__.b = document.baseURI || self.location.href;
+/******/ 		
+/******/ 		// object to store loaded and loading chunks
+/******/ 		// undefined = chunk not loaded, null = chunk preloaded/prefetched
+/******/ 		// [resolve, reject, Promise] = chunk loading, 0 = chunk loaded
+/******/ 		var installedChunks = {
+/******/ 			826: 0
+/******/ 		};
+/******/ 		
+/******/ 		// no chunk on demand loading
+/******/ 		
+/******/ 		// no prefetching
+/******/ 		
+/******/ 		// no preloaded
+/******/ 		
+/******/ 		// no HMR
+/******/ 		
+/******/ 		// no HMR manifest
+/******/ 		
+/******/ 		// no on chunks loaded
+/******/ 		
+/******/ 		// no jsonp function
 /******/ 	})();
 /******/ 	
 /******/ 	/* webpack/runtime/nonce */
@@ -614,11 +756,78 @@ const ifish_namespaceObject = __webpack_require__.p + "b8fb7461c8ce3079d4d1.png"
 
 
 function aboutFunction() {
-const aboutUs = document.createElement('div');
-aboutUs.setAttribute('class','about');
+  const aboutUs = document.createElement('div');
+  aboutUs.setAttribute('class', 'about');
 
-return aboutUs;
+  const description1 = document.createElement('p');
+  description1.innerHTML =
+    'We appreciate this opportunity to introduce ourselves. It is always our intention to make new acquaintances and foster new business relationships with the intention of them becoming a long-lasting partnership.<strong> Please consider us for any future projects; we are happy to estimate, bid and build out your next project.</strong>';
+  aboutUs.appendChild(description1);
+
+  const description2 = document.createElement('p');
+  description2.innerHTML =
+    "Bojan Vlajic, founder of iFish Construction is a construction industry veteran with over 23 years of experience on the field. During his tenure, he spent the majority of his career at the helm of Elmhardt Construction, starting off as a Carpenter Foreman and making his way up to Executive Project Manager at the height of the company’s success. Elmhardt Construction Corp. was formed as a non-union subcontractor in 1993 specializing in retail fit-outs, apartment buildings, hospitality, and medical and commercial office space. During his time at Elmhardt, some of Bojan’s most notable projects were Smyth Tribeca, Little Red School House, Pace University, Bottega Venetta New York Flagship, Calvin Kelin 5th Avenue, Arc'teryx, Steve Madden, NYU Lagone 84th Street, Shake Shacks (various locations), Bryant & Cooper Steak House, Webster Hall, FMC Medical Center, Tesla Service Center, and many more. Furthermore, Elmhardt Construction completed several private medical facilities where clean-rooms, MRI and X-ray rooms have been part of the scope and involved phased sequences and critical guidelines.";
+  aboutUs.appendChild(description2);
+
+  const description3 = document.createElement('p');
+  description3.innerHTML =
+    'Unfortunately, Elmhardt’s dynasty came to an end when its founder, Tom Bernhardt, passed away. With this, the business closed shop. Given all his extensive industry experience and wanting to continue Tom Bernhardt’s legacy, Bojan started his own firm. IFish Construction LLC was formed. Bojan combined his passion for fishing and construction and created the cheeky moniker.   ';
+  aboutUs.appendChild(description3);
+
+  const description4 = document.createElement('p');
+  description4.innerHTML =
+    'IFish Construction LLC specializes in interior layouts for metal stud framing, drywall and taping, and acoustical ceilings including architectural specialties, and exterior steel stud framing for mansards including standing seam panel work. We provide quality deliverables within timely deadlines.';
+  aboutUs.appendChild(description4);
+
+  const description5 = document.createElement('p');
+  description5.innerHTML =
+    'IFish Construction is proud of its solid safety record. All field employees have completed the following courses: 10-Hour OSHA Safety Course, 2-Hour OSHA Asbestos Awareness Course, 4-Hour Scaffold Safety Course, 2-Hour OSHA Scissor Lift Safety Course, 2-Hour OSHA Fall Prevention Course. Our supervisor and foreman has completed the 30-Hour OSHA Safety Certifications.';
+  aboutUs.appendChild(description5);
+
+  const description6 = document.createElement('p');
+  description6.innerHTML =
+    'We are a small business capable of big work always looking to expand our diverse base of clients. ';
+  aboutUs.appendChild(description6);
+
+  const description7 = document.createElement('p');
+  description7.innerHTML =
+    'We look forward to hearing from you and thank you for your time.       ';
+  aboutUs.appendChild(description7);
+
+  return aboutUs;
 }
+
+
+
+;// CONCATENATED MODULE: ./src/contact.js
+
+
+function contactFunction() {
+  const contactParagraph = document.createElement('div');
+  contactParagraph.setAttribute('class', 'contact');
+
+  const p1 = document.createElement('p');
+  p1.innerHTML =
+    'IFish is always eager to take on new work and help you through challenges. Do you have a project that you would like us to build out? Please reach out below and we will contact you as soon as possible.';
+  contactParagraph.appendChild(p1);
+
+  const p2 = document.createElement('p');
+  p2.innerHTML = '';
+  contactParagraph.appendChild(p2);
+
+  const p3 = document.createElement('p');
+  p3.setAttribute('id', 'phone');
+  p3.innerHTML = '347-760-8102';
+  contactParagraph.appendChild(p3);
+
+  const p4 = document.createElement('p');
+  p4.setAttribute('id', 'email');
+  p4.innerHTML = 'Brianzx10@gmail.com';
+  contactParagraph.appendChild(p4);
+
+  return contactParagraph;
+}
+
 
 
 ;// CONCATENATED MODULE: ./src/index.js
@@ -626,67 +835,80 @@ return aboutUs;
 
 
 
-//Create logo element
+
+// Create logo element
 function logo() {
+  // eslint-disable-next-line no-shadow
   const logo = new Image();
   logo.src = ifish_namespaceObject;
-  logo.setAttribute("id", "logo");
+  logo.setAttribute('id', 'logo');
   return logo;
 }
 
-//Create banner elements
+// Create banner elements
 function bannerEle() {
-  const containing = document.createElement("div");
-  containing.setAttribute("class", "navbuttons");
+  const containing = document.createElement('div');
+  containing.setAttribute('class', 'navbuttons');
 
-  const home = document.createElement("button");
-  home.innerHTML = "Home";
+  const home = document.createElement('button');
+  home.innerHTML = 'Home';
   containing.appendChild(home);
 
-  const about = document.createElement("button");
-  about.innerHTML = "About";
+  const about = document.createElement('button');
+  about.innerHTML = 'About';
   containing.appendChild(about);
 
-  const portfolio = document.createElement("button");
-  portfolio.innerHTML = "Portfolio";
+  const portfolio = document.createElement('button');
+  portfolio.innerHTML = 'Portfolio';
   containing.appendChild(portfolio);
 
-  const contact = document.createElement("button");
-  contact.innerHTML = "Contact";
+  const contact = document.createElement('button');
+  contact.innerHTML = 'Contact';
   containing.appendChild(contact);
 
   return containing;
 }
 
-const banner = document.getElementById("banner");
+const banner = document.getElementById('banner');
 banner.appendChild(logo());
 banner.appendChild(bannerEle());
 
-
 const content = document.getElementById('content');
 
-//Logic for switching page per tab clicked
+// Logic for switching page per tab clicked
 const refreshpage = (event) => {
-    content.setAttribute('class','reappear');
-    const target = event.target;
-     if (target.textContent == 'About') {
-        content.appendChild(aboutFunction());
+  content.setAttribute('class', 'reappear');
+  const { target } = event;
+
+  // eslint-disable-next-line eqeqeq
+  if (target.textContent === 'About') {
+    content.appendChild(aboutFunction());
+  } else if (target.textContent === 'Contact') {
+    content.appendChild(contactFunction());
   }
+};
 
-}
-
-document.addEventListener('click',(event) => {
+document.addEventListener('click', (event) => {
   const target = event.target.nodeName;
 
+  // eslint-disable-next-line eqeqeq
   if (target == 'BUTTON') {
-      content.setAttribute('class','disappear');
-      setTimeout(() => {
-          content.replaceChildren();
-          refreshpage(event);
-      }, 1300);
+    // Remove selected class from all buttons
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach((button) => {
+      button.setAttribute('class', '');
+    });
+    // Set target to selected
+    event.target.setAttribute('class', 'selectedBtn');
 
-  };
-})
+    content.setAttribute('class', 'disappear');
+    setTimeout(() => {
+      content.replaceChildren();
+      refreshpage(event);
+    }, 1300);
+  }
+});
+
 })();
 
 /******/ })()
