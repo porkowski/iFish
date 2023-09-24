@@ -1,0 +1,83 @@
+body {
+  display:grid;
+  grid-template-rows:12vh 88vh;
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+}
+
+#banner {
+  border-bottom: solid black 2px;
+  background-color: azure;
+  display: grid;
+  grid-template-columns: 30% 70%;
+  grid-template-rows: 100%;
+  height: 12vh;
+  margin-bottom: 30px;
+  box-shadow:0px 5px 10px gray;
+}
+
+#logo {
+  /* percentage of screen in mobile, 800px on desktop */
+  height: 100%;
+  grid-column: 1/2;
+  grid-row: 1/2;
+}
+
+.navbuttons {
+  display: grid;
+  grid-column: 2/3;
+  grid-template-columns: repeat(4, 30px);
+  justify-content: space-around;
+  align-content: end;
+  margin: 20px 20px 7px 20px;
+}
+
+.navbuttons button {
+  width: 100px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-weight:800;
+}
+
+button:hover {
+  cursor: pointer;
+  transform:translate(0,-5px);
+  transition:all .7s;
+}
+
+button:active {
+  cursor: pointer;
+  transform:scale(.9);
+  transition:all .1s;
+}
+
+#content {
+  display:grid;
+  grid-template-columns:1fr 3fr 1fr;
+}
+
+.about {
+  grid-column:2/3;
+  background-color:blue;
+}
+
+@media screen and (max-width: 1100px) {
+  .navbuttons {
+    display: grid;
+    grid-column: 2/3;
+    grid-template-columns: repeat(2, 20px);
+    grid-template-rows: repeat(2, 30px);
+    row-gap: 10px;
+    justify-content: space-around;
+    margin: 10px;
+    margin-top: 20px;
+  }
+
+  .navbuttons button {
+    font: 10p;
+    width: 50px;
+  }
+}
