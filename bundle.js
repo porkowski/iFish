@@ -54,7 +54,8 @@ body {
   height: 12vh;
   margin-bottom: 30px;
   box-shadow:0px 5px 10px gray;
-  position:sticky;
+  position:fixed;
+  width:100vw;
   top:0;
 }
 
@@ -101,8 +102,10 @@ button:active {
 
 
 .about,
-.contact {
+.contact,
+.portfolio {
 margin:auto;
+margin-top:81px;
 padding:15px 25px 15px 15px;
 width:80ch;
 }
@@ -138,6 +141,11 @@ width:80ch;
   transition:opacity 1.3s;
 }
 
+#map {
+  width: 80ch;
+  height: 20ch;
+}
+
 
 @media screen and (max-width: 1100px) {
   .navbuttons {
@@ -152,12 +160,17 @@ width:80ch;
   }
 
   .navbuttons button {
-    font: 10p;
+    font: 10px;
     width: 50px;
   }
 
   .about {
     width:40ch;
+  }
+
+  #map {
+    width: 40ch;
+    height: 10ch;
   }
 }
 `, ""]);
@@ -823,6 +836,11 @@ function contactFunction() {
   const p4 = document.createElement('p');
   p4.setAttribute('id', 'email');
   p4.innerHTML = 'Brianzx10@gmail.com';
+  contactParagraph.appendChild(p4);
+
+  const p5 = document.createElement('div');
+  p5.setAttribute('id', 'map');
+  p5.innerHTML = '';
   contactParagraph.appendChild(p4);
 
   return contactParagraph;
