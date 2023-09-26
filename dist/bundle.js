@@ -105,7 +105,7 @@ button:active {
 .contact,
 .portfolio {
 margin:auto;
-margin-top:81px;
+margin-top:100px;
 padding:15px 25px 15px 15px;
 width:80ch;
 }
@@ -164,7 +164,9 @@ width:80ch;
     width: 50px;
   }
 
-  .about {
+  .about,
+  .contact,
+  .porttfolio {
     width:40ch;
   }
 
