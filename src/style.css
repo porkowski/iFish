@@ -26,7 +26,8 @@ body {
   height: 12vh;
   margin-bottom: 30px;
   box-shadow:0px 5px 10px gray;
-  position:sticky;
+  position:fixed;
+  width:100vw;
   top:0;
 }
 
@@ -73,8 +74,10 @@ button:active {
 
 
 .about,
-.contact {
+.contact,
+.portfolio {
 margin:auto;
+margin-top:81px;
 padding:15px 25px 15px 15px;
 width:80ch;
 }
@@ -129,11 +132,11 @@ width:80ch;
   }
 
   .navbuttons button {
-    font: 10p;
+    font: 10px;
     width: 50px;
   }
 
-  .about,.contact {
+  .about {
     width:40ch;
   }
 
