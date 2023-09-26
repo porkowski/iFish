@@ -23,6 +23,11 @@ function contactFunction() {
   p4.innerHTML = 'Brianzx10@gmail.com';
   contactParagraph.appendChild(p4);
 
+  const p5 = document.createElement('div');
+  p5.setAttribute('id', 'map');
+  p5.innerHTML = '';
+  contactParagraph.appendChild(p4);
+
   return contactParagraph;
 }
 

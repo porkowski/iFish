@@ -110,6 +110,11 @@ width:80ch;
   transition:opacity 1.3s;
 }
 
+#map {
+  width: 80ch;
+  height: 20ch;
+}
+
 
 @media screen and (max-width: 1100px) {
   .navbuttons {
@@ -128,7 +133,12 @@ width:80ch;
     width: 50px;
   }
 
-  .about {
+  .about,.contact {
     width:40ch;
+  }
+
+  #map {
+    width: 40ch;
+    height: 10ch;
   }
 }
