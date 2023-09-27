@@ -47,7 +47,8 @@ body {
 
 #banner {
   border-bottom: solid black 2px;
-  background-color: azure;
+  --main-bg-color: azure;
+  background-color: var(--main-bg-color);
   display: grid;
   grid-template-columns: 30% 70%;
   grid-template-rows: 100%;
@@ -57,6 +58,7 @@ body {
   position:fixed;
   width:100vw;
   top:0;
+  z-index:1;
 }
 
 #logo {
@@ -72,32 +74,71 @@ body {
   grid-template-columns: repeat(4, 30px);
   justify-content: space-around;
   align-content: end;
-  margin: 20px 20px 7px 20px;
+  margin: 20px 20px 0px 20px;
 }
 
 .selectedBtn {
-  color:rgb(68, 156, 156);
+  --selected-color:rgb(68, 156, 156);
+  color:var(--selected-color);
 }
 
 .navbuttons button {
   font-family:baseFont;
   width: 100px;
+  height:22px;
   border: none;
   outline: none;
   background: transparent;
   font-weight:800;
+  transition: transform 300ms ease-in-out,
+              scale .1s ease-in-out,
+              color 300ms ease-in-out;
 }
 
-button:hover {
+/* 
+Create trigger element behind nav buttons */
+.navbuttons div {
+  width:100px;
+  height:22px;
+}
+
+/* Below means when trigger is hovered over, animate the button. Only select the MAIN nav buttons*/
+.navbuttons>div:hover>button{
   cursor: pointer;
   transform:translate(0,-5px);
-  transition:all .7s;
 }
 
-button:active {
+.navbuttons>div:active>button{
   cursor: pointer;
-  transform:scale(.9);
-  transition:all .1s;
+  transform:scale(1.2);
+}
+
+/* Dropdown css below */
+#dropdown {
+display:flex;
+flex-direction: column;
+align-items: center;
+background-color:  var(--main-bg-color);
+height:fit-content;
+width:125px;
+position:relative;
+left:-18px;
+padding:5px;
+border-left: solid black 2px;
+border-right: solid black 2px;
+border-bottom: solid black 2px;
+}
+
+#dropdown button {
+margin-top:10px;
+font-weight:200;
+transition:color 300ms ease-in-out,
+scale 300ms ease-in-out;
+}
+
+#dropdown button:hover {
+  cursor:pointer;
+  transform:scale(1.1);
 }
 
 
@@ -105,9 +146,12 @@ button:active {
 .contact,
 .portfolio {
 margin:auto;
-margin-top:100px;
 padding:15px 25px 15px 15px;
 width:80ch;
+}
+
+#content {
+  grid-row:2/3;
 }
 
 .contact {
@@ -147,6 +191,8 @@ width:80ch;
 }
 
 
+
+
 @media screen and (max-width: 1100px) {
   .navbuttons {
     display: grid;
@@ -173,6 +219,13 @@ width:80ch;
   #map {
     width: 40ch;
     height: 10ch;
+  }
+
+  #dropdown {
+    width: 120px;
+    left:-25px;
+    padding:0px;
+    margin-top:18px;
   }
 }
 `, ""]);
@@ -850,10 +903,26 @@ function contactFunction() {
 
 
 
+;// CONCATENATED MODULE: ./src/dropDown.js
+function dropDown() {
+  const menu = document.getElementById('dropdown');
+  const portfolio = document.getElementById('portfolioBtn');
+  portfolio.addEventListener('mouseover', () => {
+    menu.setAttribute('class', 'reappear');
+  });
+  menu.addEventListener('mouseleave', () => {
+    menu.setAttribute('class', 'disappear');
+  });
+}
+
+
+
 ;// CONCATENATED MODULE: ./src/index.js
 
 
 
+
+// eslint-disable-next-line import/named
 
 
 // Create logo element
@@ -870,21 +939,34 @@ function bannerEle() {
   const containing = document.createElement('div');
   containing.setAttribute('class', 'navbuttons');
 
+  const trigger1 = document.createElement('div');
   const home = document.createElement('button');
   home.innerHTML = 'Home';
-  containing.appendChild(home);
+  trigger1.appendChild(home);
+  containing.appendChild(trigger1);
 
+  const trigger2 = document.createElement('div');
   const about = document.createElement('button');
   about.innerHTML = 'About';
-  containing.appendChild(about);
+  trigger2.appendChild(about);
+  containing.appendChild(trigger2);
 
+  const trigger3 = document.createElement('div');
   const portfolio = document.createElement('button');
   portfolio.innerHTML = 'Portfolio';
-  containing.appendChild(portfolio);
+  portfolio.setAttribute('id', 'portfolioBtn');
 
+  // Grab dropdown from HTML
+  const dropdown = document.getElementById('dropdown');
+  trigger3.appendChild(portfolio);
+  trigger3.appendChild(dropdown);
+  containing.appendChild(trigger3);
+
+  const trigger4 = document.createElement('div');
   const contact = document.createElement('button');
   contact.innerHTML = 'Contact';
-  containing.appendChild(contact);
+  trigger4.appendChild(contact);
+  containing.appendChild(trigger4);
 
   return containing;
 }
@@ -925,9 +1007,11 @@ document.addEventListener('click', (event) => {
     setTimeout(() => {
       content.replaceChildren();
       refreshpage(event);
-    }, 1300);
+    }, 700);
   }
 });
+
+dropDown();
 
 })();
 
