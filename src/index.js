@@ -2,6 +2,8 @@ import './style.css';
 import ifish from './ifish.png';
 import { aboutFunction } from './about.js';
 import { contactFunction } from './contact.js';
+// eslint-disable-next-line import/named
+import { dropDown } from './dropDown.js';
 
 // Create logo element
 function logo() {
@@ -17,21 +19,34 @@ function bannerEle() {
   const containing = document.createElement('div');
   containing.setAttribute('class', 'navbuttons');
 
+  const trigger1 = document.createElement('div');
   const home = document.createElement('button');
   home.innerHTML = 'Home';
-  containing.appendChild(home);
+  trigger1.appendChild(home);
+  containing.appendChild(trigger1);
 
+  const trigger2 = document.createElement('div');
   const about = document.createElement('button');
   about.innerHTML = 'About';
-  containing.appendChild(about);
+  trigger2.appendChild(about);
+  containing.appendChild(trigger2);
 
+  const trigger3 = document.createElement('div');
   const portfolio = document.createElement('button');
   portfolio.innerHTML = 'Portfolio';
-  containing.appendChild(portfolio);
+  portfolio.setAttribute('id', 'portfolioBtn');
 
+  // Grab dropdown from HTML
+  const dropdown = document.getElementById('dropdown');
+  trigger3.appendChild(portfolio);
+  trigger3.appendChild(dropdown);
+  containing.appendChild(trigger3);
+
+  const trigger4 = document.createElement('div');
   const contact = document.createElement('button');
   contact.innerHTML = 'Contact';
-  containing.appendChild(contact);
+  trigger4.appendChild(contact);
+  containing.appendChild(trigger4);
 
   return containing;
 }
@@ -72,6 +87,8 @@ document.addEventListener('click', (event) => {
     setTimeout(() => {
       content.replaceChildren();
       refreshpage(event);
-    }, 1300);
+    }, 700);
   }
 });
+
+dropDown();
