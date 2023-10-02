@@ -2,6 +2,8 @@ import './style.css';
 import ifish from './ifish.png';
 import { aboutFunction } from './about.js';
 import { contactFunction } from './contact.js';
+import { homeFunction } from './home';
+import { imgSlider, nextImage } from './imgSlider';
 // eslint-disable-next-line import/named
 import { dropDown } from './dropDown.js';
 
@@ -67,6 +69,8 @@ const refreshpage = (event) => {
     content.appendChild(aboutFunction());
   } else if (target.textContent === 'Contact') {
     content.appendChild(contactFunction());
+  } else if (target.textContent === 'Home') {
+    content.appendChild(homeFunction());
   }
 };
 
@@ -90,5 +94,11 @@ document.addEventListener('click', (event) => {
     }, 700);
   }
 });
+
+// set home page to default page
+const button1 = document.querySelectorAll('button')[0];
+button1.setAttribute('class', 'selectedBtn');
+content.appendChild(homeFunction());
+imgSlider();
 
 dropDown();
