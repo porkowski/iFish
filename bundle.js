@@ -90,8 +90,7 @@ body {
   outline: none;
   background: transparent;
   font-weight:800;
-  transition: transform 300ms ease-in-out,
-              scale .1s ease-in-out,
+  transition: transform 200ms ease-in-out,
               color 300ms ease-in-out;
 }
 
@@ -110,7 +109,7 @@ Create trigger element behind nav buttons */
 
 .navbuttons>div:active>button{
   cursor: pointer;
-  transform:scale(1.2);
+  transform:scale(1.05);
 }
 
 /* Dropdown css below */
@@ -146,8 +145,36 @@ scale 300ms ease-in-out;
 .contact,
 .portfolio {
 margin:auto;
-padding:15px 25px 15px 15px;
+padding:15px 15px 15px 15px;
 width:80ch;
+}
+
+.home {
+display:flex;
+justify-content: center;
+margin:auto;
+padding:45px 15px 15px 15px;
+}
+
+.imgSlider {
+width:90vw;
+height:40vh;
+position:relative;
+}
+
+.imgSlider img {
+  width:100%;
+  height:100%;
+  object-fit: contain;
+  position:absolute;
+}
+
+.highZ {
+  z-index: 100;
+}
+
+.lowZ {
+  z-index:1;
 }
 
 #content {
@@ -177,12 +204,14 @@ width:80ch;
 
 .disappear {
   opacity:0%;
-  transition:opacity 1.3s;
+  transition:opacity 1.3s, visibility 1.3s;
+  visibility:hidden;
 }
 
 .reappear {
   opacity:100%;
-  transition:opacity 1.3s;
+  transition:opacity 1.3s, visibility 1.3s;
+  visibility:visible;
 }
 
 #map {
@@ -903,14 +932,79 @@ function contactFunction() {
 
 
 
+;// CONCATENATED MODULE: ./src/stockpic1.jpg
+const stockpic1_namespaceObject = __webpack_require__.p + "c6fa2e7abcf1d3436ffa.jpg";
+;// CONCATENATED MODULE: ./src/stockpic2.jpg
+const stockpic2_namespaceObject = __webpack_require__.p + "f037790b03b9c763de88.jpg";
+;// CONCATENATED MODULE: ./src/stockpic3.jpg
+const stockpic3_namespaceObject = __webpack_require__.p + "47c6b5a1098c38c3140b.jpg";
+;// CONCATENATED MODULE: ./src/stockpic4.jpg
+const stockpic4_namespaceObject = __webpack_require__.p + "8cd44c3288ced33feb49.jpg";
+;// CONCATENATED MODULE: ./src/home.js
+
+
+
+
+
+
+function loadPics() {
+  const imgSlider = document.createElement('div');
+  imgSlider.setAttribute('class', 'imgSlider');
+
+  const picture1 = new Image();
+  picture1.src = stockpic1_namespaceObject;
+  picture1.setAttribute('class', 'lowZ');
+  picture1.setAttribute('id', 'pic1');
+  imgSlider.appendChild(picture1);
+
+  const picture2 = new Image();
+  picture2.src = stockpic2_namespaceObject;
+  picture2.setAttribute('class', 'lowZ');
+  picture2.setAttribute('id', 'pic2');
+  imgSlider.appendChild(picture2);
+
+  const picture3 = new Image();
+  picture3.src = stockpic3_namespaceObject;
+  picture3.setAttribute('class', 'lowZ');
+  picture3.setAttribute('id', 'pic3');
+  imgSlider.appendChild(picture3);
+
+  const picture4 = new Image();
+  picture4.src = stockpic4_namespaceObject;
+  picture4.setAttribute('class', 'highZ');
+  picture4.setAttribute('id', 'pic4');
+  imgSlider.appendChild(picture4);
+  return imgSlider;
+}
+
+function homeFunction() {
+  const home = document.createElement('div');
+  home.setAttribute('class', 'home');
+  home.appendChild(loadPics());
+
+  return home;
+}
+
+
+
+;// CONCATENATED MODULE: ./src/imgSlider.js
+function imgSlider() {
+  const slider = document.querySelector('.imgSlider');
+  const images = slider.querySelectorAll('img');
+}
+// Maybe do a foreach loop of images & somehow set class to High Z only for the next image, but low for the rest?
+
+
 ;// CONCATENATED MODULE: ./src/dropDown.js
 function dropDown() {
   const menu = document.getElementById('dropdown');
   const portfolio = document.getElementById('portfolioBtn');
+  const navbuttons = document.querySelector('.navbuttons');
   portfolio.addEventListener('mouseover', () => {
     menu.setAttribute('class', 'reappear');
   });
-  menu.addEventListener('mouseleave', () => {
+
+  navbuttons.childNodes[2].addEventListener('mouseleave', () => {
     menu.setAttribute('class', 'disappear');
   });
 }
@@ -918,6 +1012,8 @@ function dropDown() {
 
 
 ;// CONCATENATED MODULE: ./src/index.js
+
+
 
 
 
@@ -987,6 +1083,8 @@ const refreshpage = (event) => {
     content.appendChild(aboutFunction());
   } else if (target.textContent === 'Contact') {
     content.appendChild(contactFunction());
+  } else if (target.textContent === 'Home') {
+    content.appendChild(homeFunction());
   }
 };
 
@@ -1010,6 +1108,12 @@ document.addEventListener('click', (event) => {
     }, 700);
   }
 });
+
+// set home page to default page
+const button1 = document.querySelectorAll('button')[0];
+button1.setAttribute('class', 'selectedBtn');
+content.appendChild(homeFunction());
+imgSlider();
 
 dropDown();
 
