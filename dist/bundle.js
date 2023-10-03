@@ -988,11 +988,71 @@ function homeFunction() {
 
 
 ;// CONCATENATED MODULE: ./src/imgSlider.js
-function imgSlider() {
+/// Function to return which image number is currently showing
+function findPicNum(album) {
+  let number = '';
+  album.forEach((image) => {
+    if (image.getAttribute('class') === 'highZ') {
+      number = image.getAttribute('id').slice(3);
+    }
+  });
+  return number;
+}
+
+// finds picture nubmer of current image
+
+function imgSliderNext() {
   const slider = document.querySelector('.imgSlider');
   const images = slider.querySelectorAll('img');
+  const currentNum = findPicNum(images);
+  switch (currentNum) {
+    case '4':
+      images[3].className = 'lowZ';
+      images[0].className = 'highZ';
+      break;
+    case '3':
+      images[2].className = 'lowZ';
+      images[3].className = 'highZ';
+      break;
+    case '2':
+      images[1].className = 'lowZ';
+      images[2].className = 'highZ';
+      break;
+    case '1':
+      images[0].className = 'lowZ';
+      images[1].className = 'highZ';
+      break;
+    default:
+      console.log(images);
+  }
 }
-// Maybe do a foreach loop of images & somehow set class to High Z only for the next image, but low for the rest?
+
+function imgSliderPrev() {
+  const slider = document.querySelector('.imgSlider');
+  const images = slider.querySelectorAll('img');
+  const currentNum = findPicNum(images);
+  switch (currentNum) {
+    case '4':
+      images[3].className = 'lowZ';
+      images[2].className = 'highZ';
+      break;
+    case '3':
+      images[2].className = 'lowZ';
+      images[1].className = 'highZ';
+      break;
+    case '2':
+      images[1].className = 'lowZ';
+      images[0].className = 'highZ';
+      break;
+    case '1':
+      images[0].className = 'lowZ';
+      images[4].className = 'highZ';
+      break;
+    default:
+      console.log(images);
+  }
+}
+
 
 
 ;// CONCATENATED MODULE: ./src/dropDown.js
@@ -1017,6 +1077,7 @@ function dropDown() {
 
 
 
+// eslint-disable-next-line import/named
 
 // eslint-disable-next-line import/named
 
@@ -1113,7 +1174,7 @@ document.addEventListener('click', (event) => {
 const button1 = document.querySelectorAll('button')[0];
 button1.setAttribute('class', 'selectedBtn');
 content.appendChild(homeFunction());
-imgSlider();
+imgSliderPrev();
 
 dropDown();
 

@@ -3,7 +3,8 @@ import ifish from './ifish.png';
 import { aboutFunction } from './about.js';
 import { contactFunction } from './contact.js';
 import { homeFunction } from './home';
-import { imgSlider, nextImage } from './imgSlider';
+// eslint-disable-next-line import/named
+import { imgSliderNext, imgSliderPrev } from './imgSlider';
 // eslint-disable-next-line import/named
 import { dropDown } from './dropDown.js';
 
@@ -99,6 +100,6 @@ document.addEventListener('click', (event) => {
 const button1 = document.querySelectorAll('button')[0];
 button1.setAttribute('class', 'selectedBtn');
 content.appendChild(homeFunction());
-imgSlider();
+imgSliderPrev();
 
 dropDown();
