@@ -4,7 +4,7 @@ import { aboutFunction } from './about.js';
 import { contactFunction } from './contact.js';
 import { homeFunction } from './home';
 // eslint-disable-next-line import/named
-import { imgSliderNext, imgSliderPrev } from './imgSlider';
+import { imgSliderListener } from './imgSlider';
 // eslint-disable-next-line import/named
 import { dropDown } from './dropDown.js';
 
@@ -78,8 +78,9 @@ const refreshpage = (event) => {
 document.addEventListener('click', (event) => {
   const target = event.target.nodeName;
 
+  // Make sure this only listens for buttons with text i.e nav bar buttons and not image buttons
   // eslint-disable-next-line eqeqeq
-  if (target == 'BUTTON') {
+  if (target == 'BUTTON' && event.target.textContent !== '') {
     // Remove selected class from all buttons
     const buttons = document.querySelectorAll('button');
     buttons.forEach((button) => {
@@ -100,6 +101,6 @@ document.addEventListener('click', (event) => {
 const button1 = document.querySelectorAll('button')[0];
 button1.setAttribute('class', 'selectedBtn');
 content.appendChild(homeFunction());
-imgSliderPrev();
+imgSliderListener();
 
 dropDown();

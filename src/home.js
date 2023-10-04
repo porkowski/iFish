@@ -31,6 +31,19 @@ function loadPics() {
   picture4.setAttribute('class', 'highZ');
   picture4.setAttribute('id', 'pic4');
   imgSlider.appendChild(picture4);
+
+  // Left and right buttons
+  const left = document.createElement('div');
+  left.setAttribute('class', 'left');
+  const leftbtn = document.createElement('button');
+  left.appendChild(leftbtn);
+  imgSlider.appendChild(left);
+  const right = document.createElement('div');
+  const rightbtn = document.createElement('button');
+  right.appendChild(rightbtn);
+  right.setAttribute('class', 'right');
+  imgSlider.appendChild(right);
+
   return imgSlider;
 }
 

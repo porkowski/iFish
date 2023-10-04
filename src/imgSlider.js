@@ -56,11 +56,25 @@ function imgSliderPrev() {
       break;
     case '1':
       images[0].className = 'lowZ';
-      images[4].className = 'highZ';
+      images[3].className = 'highZ';
       break;
     default:
       console.log(images);
   }
 }
 
-export { imgSliderNext, imgSliderPrev };
+function imgSliderListener() {
+  const leftdiv = document.querySelector('.left');
+  const rightdiv = document.querySelector('.right');
+
+  document.addEventListener('click', (event) => {
+    const parent = event.target.parentNode.getAttribute('class');
+
+    if (parent === 'left' && event.target.nodeName === 'BUTTON') {
+      imgSliderPrev();
+    } else if (parent === 'right' && event.target.nodeName === 'BUTTON') {
+      imgSliderNext();
+    }
+  });
+}
+export { imgSliderListener };
