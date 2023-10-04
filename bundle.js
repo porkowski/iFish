@@ -19,12 +19,16 @@
 
 
 var ___CSS_LOADER_URL_IMPORT_0___ = new URL(/* asset import */ __webpack_require__(108), __webpack_require__.b);
-var ___CSS_LOADER_URL_IMPORT_1___ = new URL(/* asset import */ __webpack_require__(420), __webpack_require__.b);
-var ___CSS_LOADER_URL_IMPORT_2___ = new URL(/* asset import */ __webpack_require__(564), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_1___ = new URL(/* asset import */ __webpack_require__(202), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_2___ = new URL(/* asset import */ __webpack_require__(271), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_3___ = new URL(/* asset import */ __webpack_require__(420), __webpack_require__.b);
+var ___CSS_LOADER_URL_IMPORT_4___ = new URL(/* asset import */ __webpack_require__(564), __webpack_require__.b);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_noSourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_0___);
 var ___CSS_LOADER_URL_REPLACEMENT_1___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_1___);
 var ___CSS_LOADER_URL_REPLACEMENT_2___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_2___);
+var ___CSS_LOADER_URL_REPLACEMENT_3___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_3___);
+var ___CSS_LOADER_URL_REPLACEMENT_4___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_2___default()(___CSS_LOADER_URL_IMPORT_4___);
 // Module
 ___CSS_LOADER_EXPORT___.push([module.id, `@font-face {
   font-family: baseFont;
@@ -152,7 +156,7 @@ width:80ch;
 .home {
 display:flex;
 justify-content: center;
-margin:auto;
+margin:0;
 padding:45px 15px 15px 15px;
 }
 
@@ -181,6 +185,56 @@ position:relative;
   grid-row:2/3;
 }
 
+/* Buttons for img slider */
+.left,
+.right {
+  height:100%;
+  width:15vw;
+  position: absolute;
+}
+
+.left {
+left:0vw;
+
+}
+
+.right {
+right:0vw;
+
+} 
+
+/* reset button */
+.left button,
+.right button {
+  background-color: transparent;
+  border-width: 0;
+  font-family: inherit;
+  font-size: inherit;
+  font-style: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  padding: 0;
+  position:absolute;
+  height:30px;
+  width:30px;
+  background-repeat:no-repeat;
+  scale:2;
+  z-index: 1000;
+}
+
+.left button {
+  background-image:url(${___CSS_LOADER_URL_REPLACEMENT_1___});
+  top:50%;
+  left:50%;
+}
+
+.right button {
+  background-image:url(${___CSS_LOADER_URL_REPLACEMENT_2___});
+  top:50%;
+  right:50%;
+}
+
+
 .contact {
   display:flex;
   flex-direction: column;
@@ -189,14 +243,14 @@ position:relative;
 
 
 #email::before {
-  content:url(${___CSS_LOADER_URL_REPLACEMENT_1___});
+  content:url(${___CSS_LOADER_URL_REPLACEMENT_3___});
   position:relative;
   margin-right:10px;
   top:5px;
 }
 
 #phone::before {
-  content:url(${___CSS_LOADER_URL_REPLACEMENT_2___});
+  content:url(${___CSS_LOADER_URL_REPLACEMENT_4___});
   position:relative;
   margin-right:10px;
   top:5px;
@@ -654,6 +708,20 @@ module.exports = __webpack_require__.p + "0951f668b7acba944df2.otf";
 
 /***/ }),
 
+/***/ 202:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "8811f7480ff7ba33ca02.svg";
+
+/***/ }),
+
+/***/ 271:
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+module.exports = __webpack_require__.p + "5cd2852ae89eae76d5f9.svg";
+
+/***/ }),
+
 /***/ 420:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
@@ -974,6 +1042,19 @@ function loadPics() {
   picture4.setAttribute('class', 'highZ');
   picture4.setAttribute('id', 'pic4');
   imgSlider.appendChild(picture4);
+
+  // Left and right buttons
+  const left = document.createElement('div');
+  left.setAttribute('class', 'left');
+  const leftbtn = document.createElement('button');
+  left.appendChild(leftbtn);
+  imgSlider.appendChild(left);
+  const right = document.createElement('div');
+  const rightbtn = document.createElement('button');
+  right.appendChild(rightbtn);
+  right.setAttribute('class', 'right');
+  imgSlider.appendChild(right);
+
   return imgSlider;
 }
 
@@ -1046,13 +1127,27 @@ function imgSliderPrev() {
       break;
     case '1':
       images[0].className = 'lowZ';
-      images[4].className = 'highZ';
+      images[3].className = 'highZ';
       break;
     default:
       console.log(images);
   }
 }
 
+function imgSliderListener() {
+  const leftdiv = document.querySelector('.left');
+  const rightdiv = document.querySelector('.right');
+
+  document.addEventListener('click', (event) => {
+    const parent = event.target.parentNode.getAttribute('class');
+
+    if (parent === 'left' && event.target.nodeName === 'BUTTON') {
+      imgSliderPrev();
+    } else if (parent === 'right' && event.target.nodeName === 'BUTTON') {
+      imgSliderNext();
+    }
+  });
+}
 
 
 ;// CONCATENATED MODULE: ./src/dropDown.js
@@ -1152,8 +1247,9 @@ const refreshpage = (event) => {
 document.addEventListener('click', (event) => {
   const target = event.target.nodeName;
 
+  // Make sure this only listens for buttons with text i.e nav bar buttons and not image buttons
   // eslint-disable-next-line eqeqeq
-  if (target == 'BUTTON') {
+  if (target == 'BUTTON' && event.target.textContent !== '') {
     // Remove selected class from all buttons
     const buttons = document.querySelectorAll('button');
     buttons.forEach((button) => {
@@ -1174,7 +1270,7 @@ document.addEventListener('click', (event) => {
 const button1 = document.querySelectorAll('button')[0];
 button1.setAttribute('class', 'selectedBtn');
 content.appendChild(homeFunction());
-imgSliderPrev();
+imgSliderListener();
 
 dropDown();
 
