@@ -14,23 +14,34 @@ function findPicNum(album) {
 function imgSliderNext() {
   const slider = document.querySelector('.imgSlider');
   const images = slider.querySelectorAll('img');
+  const trackingDiv = document.querySelector('.trackingDots');
+  const dots = trackingDiv.querySelectorAll('div');
   const currentNum = findPicNum(images);
   switch (currentNum) {
     case '4':
+      // dots numbers wont match the image # because i want dot 1 to equal the first picture
       images[3].className = 'lowZ';
+      dots[0].className = '';
       images[0].className = 'highZ';
+      dots[1].className = 'selectedDot';
       break;
     case '3':
       images[2].className = 'lowZ';
+      dots[3].className = '';
       images[3].className = 'highZ';
+      dots[0].className = 'selectedDot';
       break;
     case '2':
       images[1].className = 'lowZ';
+      dots[2].className = '';
       images[2].className = 'highZ';
+      dots[3].className = 'selectedDot';
       break;
     case '1':
       images[0].className = 'lowZ';
+      dots[1].className = '';
       images[1].className = 'highZ';
+      dots[2].className = 'selectedDot';
       break;
     default:
       console.log(images);
@@ -40,23 +51,34 @@ function imgSliderNext() {
 function imgSliderPrev() {
   const slider = document.querySelector('.imgSlider');
   const images = slider.querySelectorAll('img');
+  const trackingDiv = document.querySelector('.trackingDots');
+  const dots = trackingDiv.querySelectorAll('div');
   const currentNum = findPicNum(images);
   switch (currentNum) {
     case '4':
+      // dots numbers wont match the image # because i want dot 1 to equal the first picture
       images[3].className = 'lowZ';
+      dots[0].className = '';
       images[2].className = 'highZ';
+      dots[3].className = 'selectedDot';
       break;
     case '3':
       images[2].className = 'lowZ';
+      dots[3].className = '';
       images[1].className = 'highZ';
+      dots[2].className = 'selectedDot';
       break;
     case '2':
       images[1].className = 'lowZ';
+      dots[2].className = '';
       images[0].className = 'highZ';
+      dots[1].className = 'selectedDot';
       break;
     case '1':
       images[0].className = 'lowZ';
+      dots[1].className = '';
       images[3].className = 'highZ';
+      dots[0].className = 'selectedDot';
       break;
     default:
       console.log(images);
@@ -64,9 +86,6 @@ function imgSliderPrev() {
 }
 
 function imgSliderListener() {
-  const leftdiv = document.querySelector('.left');
-  const rightdiv = document.querySelector('.right');
-
   document.addEventListener('click', (event) => {
     const parent = event.target.parentNode.getAttribute('class');
 
@@ -77,4 +96,7 @@ function imgSliderListener() {
     }
   });
 }
+
+setTimeout(imgSliderNext, 6000);
+
 export { imgSliderListener };

@@ -46,6 +46,7 @@ body {
   padding: 0;
   margin: 0;
   line-height:1.1rem;
+  --selected-color:rgb(68, 156, 156);
 }
 
 
@@ -82,7 +83,6 @@ body {
 }
 
 .selectedBtn {
-  --selected-color:rgb(68, 156, 156);
   color:var(--selected-color);
 }
 
@@ -155,7 +155,8 @@ width:80ch;
 
 .home {
 display:flex;
-justify-content: center;
+flex-direction: column;
+align-items: center;
 margin:0;
 padding:45px 15px 15px 15px;
 }
@@ -164,6 +165,30 @@ padding:45px 15px 15px 15px;
 width:90vw;
 height:40vh;
 position:relative;
+}
+
+.trackingDots {
+  display:flex;
+  justify-content: space-between;
+  margin-top:10px;
+  height:20px;
+  width:30vw;
+}
+
+.trackingDots div {
+  border: solid 2px rgb(193, 193, 193);
+  background-color: rgb(234, 234, 234);
+  width:12px;
+  height:12px;
+  border-radius:50px;
+}
+
+.trackingDots div.selectedDot {
+  background-color: var(--selected-color);
+  border:solid 2px var(--selected-color);
+  transition: background-color 600ms ease-in-out,
+  border-color 600ms ease-in-out;
+
 }
 
 .imgSlider img {
@@ -175,10 +200,14 @@ position:relative;
 
 .highZ {
   z-index: 100;
+  transition:opacity 1s ease-in-out;
+  opacity:1;
 }
 
 .lowZ {
   z-index:1;
+  transition:opacity 1s ease-in-out;
+  opacity:0;
 }
 
 #content {
@@ -220,6 +249,7 @@ right:0vw;
   background-repeat:no-repeat;
   scale:2;
   z-index: 1000;
+  transition: transform 200ms ease-in-out;
 }
 
 .left button {
@@ -233,6 +263,21 @@ right:0vw;
   top:50%;
   right:50%;
 }
+
+.left button:hover,
+.right button:hover {
+  opacity:75%;
+  cursor:pointer;
+}
+
+.left button:active,
+.right button:active {
+  opacity:75%;
+  transform:scale(0.85);
+  cursor:pointer;
+}
+
+
 
 
 .contact {
@@ -309,6 +354,18 @@ right:0vw;
     left:-25px;
     padding:0px;
     margin-top:18px;
+  }
+}
+
+@media screen and (max-width: 690px) {
+  .left button {
+    top:100%;
+    left:50%;
+  }
+  
+  .right button {
+    top:100%;
+    right:50%;
   }
 }
 `, ""]);
@@ -1058,10 +1115,31 @@ function loadPics() {
   return imgSlider;
 }
 
+function trackingDots(home) {
+  const slider = home.querySelector('.imgSlider');
+  const imgcount = slider.querySelectorAll('img');
+  const trackingDiv = document.createElement('div');
+  trackingDiv.setAttribute('class', 'trackingDots');
+  console.log(imgcount);
+  // eslint-disable-next-line no-plusplus
+  // Add tracking dot for each photo
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < imgcount.length; i++) {
+    const newDot = document.createElement('div');
+    // eslint-disable-next-line eqeqeq
+    if (i == 0) {
+      newDot.setAttribute('class', 'selectedDot');
+    }
+    trackingDiv.appendChild(newDot);
+  }
+  return trackingDiv;
+}
+
 function homeFunction() {
   const home = document.createElement('div');
   home.setAttribute('class', 'home');
   home.appendChild(loadPics());
+  home.appendChild(trackingDots(home));
 
   return home;
 }
@@ -1085,23 +1163,34 @@ function findPicNum(album) {
 function imgSliderNext() {
   const slider = document.querySelector('.imgSlider');
   const images = slider.querySelectorAll('img');
+  const trackingDiv = document.querySelector('.trackingDots');
+  const dots = trackingDiv.querySelectorAll('div');
   const currentNum = findPicNum(images);
   switch (currentNum) {
     case '4':
+      // dots numbers wont match the image # because i want dot 1 to equal the first picture
       images[3].className = 'lowZ';
+      dots[0].className = '';
       images[0].className = 'highZ';
+      dots[1].className = 'selectedDot';
       break;
     case '3':
       images[2].className = 'lowZ';
+      dots[3].className = '';
       images[3].className = 'highZ';
+      dots[0].className = 'selectedDot';
       break;
     case '2':
       images[1].className = 'lowZ';
+      dots[2].className = '';
       images[2].className = 'highZ';
+      dots[3].className = 'selectedDot';
       break;
     case '1':
       images[0].className = 'lowZ';
+      dots[1].className = '';
       images[1].className = 'highZ';
+      dots[2].className = 'selectedDot';
       break;
     default:
       console.log(images);
@@ -1111,23 +1200,34 @@ function imgSliderNext() {
 function imgSliderPrev() {
   const slider = document.querySelector('.imgSlider');
   const images = slider.querySelectorAll('img');
+  const trackingDiv = document.querySelector('.trackingDots');
+  const dots = trackingDiv.querySelectorAll('div');
   const currentNum = findPicNum(images);
   switch (currentNum) {
     case '4':
+      // dots numbers wont match the image # because i want dot 1 to equal the first picture
       images[3].className = 'lowZ';
+      dots[0].className = '';
       images[2].className = 'highZ';
+      dots[3].className = 'selectedDot';
       break;
     case '3':
       images[2].className = 'lowZ';
+      dots[3].className = '';
       images[1].className = 'highZ';
+      dots[2].className = 'selectedDot';
       break;
     case '2':
       images[1].className = 'lowZ';
+      dots[2].className = '';
       images[0].className = 'highZ';
+      dots[1].className = 'selectedDot';
       break;
     case '1':
       images[0].className = 'lowZ';
+      dots[1].className = '';
       images[3].className = 'highZ';
+      dots[0].className = 'selectedDot';
       break;
     default:
       console.log(images);
@@ -1135,9 +1235,6 @@ function imgSliderPrev() {
 }
 
 function imgSliderListener() {
-  const leftdiv = document.querySelector('.left');
-  const rightdiv = document.querySelector('.right');
-
   document.addEventListener('click', (event) => {
     const parent = event.target.parentNode.getAttribute('class');
 
@@ -1148,6 +1245,10 @@ function imgSliderListener() {
     }
   });
 }
+
+setTimeout(imgSliderNext, 6000);
+loopedTimeout();
+
 
 
 ;// CONCATENATED MODULE: ./src/dropDown.js

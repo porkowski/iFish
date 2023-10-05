@@ -47,10 +47,31 @@ function loadPics() {
   return imgSlider;
 }
 
+function trackingDots(home) {
+  const slider = home.querySelector('.imgSlider');
+  const imgcount = slider.querySelectorAll('img');
+  const trackingDiv = document.createElement('div');
+  trackingDiv.setAttribute('class', 'trackingDots');
+  console.log(imgcount);
+  // eslint-disable-next-line no-plusplus
+  // Add tracking dot for each photo
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < imgcount.length; i++) {
+    const newDot = document.createElement('div');
+    // eslint-disable-next-line eqeqeq
+    if (i == 0) {
+      newDot.setAttribute('class', 'selectedDot');
+    }
+    trackingDiv.appendChild(newDot);
+  }
+  return trackingDiv;
+}
+
 function homeFunction() {
   const home = document.createElement('div');
   home.setAttribute('class', 'home');
   home.appendChild(loadPics());
+  home.appendChild(trackingDots(home));
 
   return home;
 }
