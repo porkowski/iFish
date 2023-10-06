@@ -52,7 +52,6 @@ function trackingDots(home) {
   const imgcount = slider.querySelectorAll('img');
   const trackingDiv = document.createElement('div');
   trackingDiv.setAttribute('class', 'trackingDots');
-  console.log(imgcount);
   // eslint-disable-next-line no-plusplus
   // Add tracking dot for each photo
   // eslint-disable-next-line no-plusplus
