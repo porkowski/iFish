@@ -92,32 +92,34 @@ function imgSliderDotClick(currentNum) {
   const images = slider.querySelectorAll('img');
   const trackingDiv = document.querySelector('.trackingDots');
   const dots = trackingDiv.querySelectorAll('div');
-  console.log(currentNum);
+  // currentNum is passed in as the desired image to shift to. currentPicture is the placeholder for previous picture.
+  const currentPicture = findPicNum(images) - 1;
   switch (currentNum) {
     case '4':
-      // dots numbers wont match the image # because i want dot 1 to equal the first picture
-      images[3].className = 'lowZ';
-      dots[0].className = '';
-      images[0].className = 'highZ';
-      dots[1].className = 'selectedDot';
-      break;
-    case '3':
-      images[2].className = 'lowZ';
-      dots[3].className = '';
+      // dots numbers wont match the image # because i want dot 1 to equal the first picture.Image starts with pic4, then 3, 2, 1
+      console.log(currentNum);
+      images[currentPicture].className = 'lowZ';
+      dots[currentPicture].className = '';
       images[3].className = 'highZ';
-      dots[0].className = 'selectedDot';
-      break;
-    case '2':
-      images[1].className = 'lowZ';
-      dots[2].className = '';
-      images[2].className = 'highZ';
       dots[3].className = 'selectedDot';
       break;
-    case '1':
-      images[0].className = 'lowZ';
-      dots[1].className = '';
-      images[1].className = 'highZ';
+    case '3':
+      images[currentPicture].className = 'lowZ';
+      dots[currentPicture].className = '';
+      images[2].className = 'highZ';
       dots[2].className = 'selectedDot';
+      break;
+    case '2':
+      images[currentPicture].className = 'lowZ';
+      dots[currentPicture].className = '';
+      images[1].className = 'highZ';
+      dots[1].className = 'selectedDot';
+      break;
+    case '1':
+      images[currentPicture].className = 'lowZ';
+      dots[currentPicture].className = '';
+      images[0].className = 'highZ';
+      dots[0].className = 'selectedDot';
       break;
     default:
       console.log(images);
@@ -144,7 +146,6 @@ function loop() {
     loop();
   }, 6000);
 }
-loop();
 
 // tracking dots click listener
 function dotsListen() {
@@ -161,4 +162,4 @@ function dotsListen() {
 }
 
 dotsListen();
-export { imgSliderListener };
+export { imgSliderListener, loop };

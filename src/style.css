@@ -151,6 +151,14 @@ position:relative;
   border-radius:50px;
 }
 
+.trackingDots div:hover {
+  cursor:pointer;
+}
+
+.trackingDots div:active {
+  cursor:pointer;
+}
+
 .trackingDots div.selectedDot {
   background-color: var(--selected-color);
   border:solid 2px var(--selected-color);

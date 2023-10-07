@@ -4,7 +4,7 @@ import { aboutFunction } from './about.js';
 import { contactFunction } from './contact.js';
 import { homeFunction } from './home';
 // eslint-disable-next-line import/named
-import { imgSliderListener } from './imgSlider';
+import { imgSliderListener, loop } from './imgSlider';
 // eslint-disable-next-line import/named
 import { dropDown } from './dropDown.js';
 
@@ -102,5 +102,6 @@ const button1 = document.querySelectorAll('button')[0];
 button1.setAttribute('class', 'selectedBtn');
 content.appendChild(homeFunction());
 imgSliderListener();
+loop();
 
 dropDown();
