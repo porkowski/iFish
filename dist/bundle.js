@@ -1172,33 +1172,33 @@ function imgSliderNext() {
   const images = slider.querySelectorAll('img');
   const trackingDiv = document.querySelector('.trackingDots');
   const dots = trackingDiv.querySelectorAll('div');
+  // currentNum is the number of picture from the ID
   const currentNum = findPicNum(images);
 
   switch (currentNum) {
     case '4':
-      // dots numbers wont match the image # because i want dot 1 to equal the first picture
       images[3].className = 'lowZ';
-      dots[0].className = '';
+      dots[3].className = '';
       images[0].className = 'highZ';
-      dots[1].className = 'selectedDot';
+      dots[0].className = 'selectedDot';
       break;
     case '3':
       images[2].className = 'lowZ';
-      dots[3].className = '';
+      dots[2].className = '';
       images[3].className = 'highZ';
-      dots[0].className = 'selectedDot';
+      dots[3].className = 'selectedDot';
       break;
     case '2':
       images[1].className = 'lowZ';
-      dots[2].className = '';
+      dots[1].className = '';
       images[2].className = 'highZ';
-      dots[3].className = 'selectedDot';
+      dots[2].className = 'selectedDot';
       break;
     case '1':
       images[0].className = 'lowZ';
-      dots[1].className = '';
+      dots[0].className = '';
       images[1].className = 'highZ';
-      dots[2].className = 'selectedDot';
+      dots[1].className = 'selectedDot';
       break;
     default:
       console.log(images);
@@ -1210,32 +1210,32 @@ function imgSliderPrev() {
   const images = slider.querySelectorAll('img');
   const trackingDiv = document.querySelector('.trackingDots');
   const dots = trackingDiv.querySelectorAll('div');
+  // currentNum is the number of picture from the ID
   const currentNum = findPicNum(images);
   switch (currentNum) {
     case '4':
-      // dots numbers wont match the image # because i want dot 1 to equal the first picture
       images[3].className = 'lowZ';
-      dots[0].className = '';
+      dots[3].className = '';
       images[2].className = 'highZ';
-      dots[3].className = 'selectedDot';
+      dots[2].className = 'selectedDot';
       break;
     case '3':
       images[2].className = 'lowZ';
-      dots[3].className = '';
+      dots[2].className = '';
       images[1].className = 'highZ';
-      dots[2].className = 'selectedDot';
+      dots[1].className = 'selectedDot';
       break;
     case '2':
       images[1].className = 'lowZ';
-      dots[2].className = '';
+      dots[1].className = '';
       images[0].className = 'highZ';
-      dots[1].className = 'selectedDot';
+      dots[0].className = 'selectedDot';
       break;
     case '1':
       images[0].className = 'lowZ';
-      dots[1].className = '';
+      dots[0].className = '';
       images[3].className = 'highZ';
-      dots[0].className = 'selectedDot';
+      dots[3].className = 'selectedDot';
       break;
     default:
       console.log(images);
@@ -1250,10 +1250,10 @@ function imgSliderDotClick(currentNum) {
   const dots = trackingDiv.querySelectorAll('div');
   // currentNum is passed in as the desired image to shift to. currentPicture is the placeholder for previous picture.
   const currentPicture = findPicNum(images) - 1;
+
   switch (currentNum) {
     case '4':
-      // dots numbers wont match the image # because i want dot 1 to equal the first picture.Image starts with pic4, then 3, 2, 1
-      console.log(currentNum);
+      console.log(currentPicture);
       images[currentPicture].className = 'lowZ';
       dots[currentPicture].className = '';
       images[3].className = 'highZ';
@@ -1266,6 +1266,7 @@ function imgSliderDotClick(currentNum) {
       dots[2].className = 'selectedDot';
       break;
     case '2':
+      console.log(currentPicture);
       images[currentPicture].className = 'lowZ';
       dots[currentPicture].className = '';
       images[1].className = 'highZ';
@@ -1283,6 +1284,12 @@ function imgSliderDotClick(currentNum) {
 }
 
 function imgSliderListener() {
+  // Set up baseline, as default is the last image has the highest Z
+  const slider = document.querySelector('.imgSlider');
+  const images = slider.querySelectorAll('img');
+  images[0].className = 'highZ';
+  images[3].className = 'lowZ';
+
   document.addEventListener('click', (event) => {
     const parent = event.target.parentNode.getAttribute('class');
 
@@ -1292,6 +1299,8 @@ function imgSliderListener() {
       imgSliderNext();
     }
   });
+
+  loop();
 }
 
 // auto loop pictures
@@ -1311,6 +1320,7 @@ function dotsListen() {
     const children = Array.from(parent.querySelectorAll('div'));
     const index = children.indexOf(event.target);
     if (event.target.textContent === '' && parentClass === 'trackingDots') {
+      // currentNum is the dot that is clicked, starting from 0.
       const currentNum = index + 1;
       imgSliderDotClick(currentNum.toString());
     }
@@ -1441,7 +1451,6 @@ const button1 = document.querySelectorAll('button')[0];
 button1.setAttribute('class', 'selectedBtn');
 content.appendChild(homeFunction());
 imgSliderListener();
-loop();
 
 dropDown();
 
