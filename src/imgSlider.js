@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /// Function to return which image number is currently showing
 function findPicNum(album) {
   let number = '';
@@ -11,119 +12,38 @@ function findPicNum(album) {
 
 // finds picture nubmer of current image
 
-function imgSliderNext() {
+function imgSlider(direction) {
   const slider = document.querySelector('.imgSlider');
   const images = slider.querySelectorAll('img');
   const trackingDiv = document.querySelector('.trackingDots');
   const dots = trackingDiv.querySelectorAll('div');
   // currentNum is the number of picture from the ID
   const currentNum = findPicNum(images);
+  const currentIndex = currentNum - 1;
+  // current Index aka current image gets hidden when sliding through images
+  images[currentIndex].className = 'lowZ';
+  dots[currentIndex].className = '';
 
-  switch (currentNum) {
-    case '4':
-      images[3].className = 'lowZ';
-      dots[3].className = '';
+  if (direction === 'next') {
+    if (parseInt(currentNum) === images.length) {
       images[0].className = 'highZ';
       dots[0].className = 'selectedDot';
-      break;
-    case '3':
-      images[2].className = 'lowZ';
-      dots[2].className = '';
-      images[3].className = 'highZ';
-      dots[3].className = 'selectedDot';
-      break;
-    case '2':
-      images[1].className = 'lowZ';
-      dots[1].className = '';
-      images[2].className = 'highZ';
-      dots[2].className = 'selectedDot';
-      break;
-    case '1':
-      images[0].className = 'lowZ';
-      dots[0].className = '';
-      images[1].className = 'highZ';
-      dots[1].className = 'selectedDot';
-      break;
-    default:
-      console.log(images);
-  }
-}
-
-function imgSliderPrev() {
-  const slider = document.querySelector('.imgSlider');
-  const images = slider.querySelectorAll('img');
-  const trackingDiv = document.querySelector('.trackingDots');
-  const dots = trackingDiv.querySelectorAll('div');
-  // currentNum is the number of picture from the ID
-  const currentNum = findPicNum(images);
-  switch (currentNum) {
-    case '4':
-      images[3].className = 'lowZ';
-      dots[3].className = '';
-      images[2].className = 'highZ';
-      dots[2].className = 'selectedDot';
-      break;
-    case '3':
-      images[2].className = 'lowZ';
-      dots[2].className = '';
-      images[1].className = 'highZ';
-      dots[1].className = 'selectedDot';
-      break;
-    case '2':
-      images[1].className = 'lowZ';
-      dots[1].className = '';
-      images[0].className = 'highZ';
-      dots[0].className = 'selectedDot';
-      break;
-    case '1':
-      images[0].className = 'lowZ';
-      dots[0].className = '';
-      images[3].className = 'highZ';
-      dots[3].className = 'selectedDot';
-      break;
-    default:
-      console.log(images);
-  }
-}
-
-// custom image select per dot click. This function just changed to allow currentNum to be a passed parameter
-function imgSliderDotClick(currentNum) {
-  const slider = document.querySelector('.imgSlider');
-  const images = slider.querySelectorAll('img');
-  const trackingDiv = document.querySelector('.trackingDots');
-  const dots = trackingDiv.querySelectorAll('div');
-  // currentNum is passed in as the desired image to shift to. currentPicture is the placeholder for previous picture.
-  const currentPicture = findPicNum(images) - 1;
-
-  switch (currentNum) {
-    case '4':
-      console.log(currentPicture);
-      images[currentPicture].className = 'lowZ';
-      dots[currentPicture].className = '';
-      images[3].className = 'highZ';
-      dots[3].className = 'selectedDot';
-      break;
-    case '3':
-      images[currentPicture].className = 'lowZ';
-      dots[currentPicture].className = '';
-      images[2].className = 'highZ';
-      dots[2].className = 'selectedDot';
-      break;
-    case '2':
-      console.log(currentPicture);
-      images[currentPicture].className = 'lowZ';
-      dots[currentPicture].className = '';
-      images[1].className = 'highZ';
-      dots[1].className = 'selectedDot';
-      break;
-    case '1':
-      images[currentPicture].className = 'lowZ';
-      dots[currentPicture].className = '';
-      images[0].className = 'highZ';
-      dots[0].className = 'selectedDot';
-      break;
-    default:
-      console.log(images);
+    } else {
+      images[currentNum].className = 'highZ';
+      dots[currentNum].className = 'selectedDot';
+    }
+  } else if (direction === 'prev') {
+    if (parseInt(currentNum) === 1) {
+      images[images.length - 1].className = 'highZ';
+      dots[images.length - 1].className = 'selectedDot';
+    } else {
+      images[currentNum - 2].className = 'highZ';
+      dots[currentNum - 2].className = 'selectedDot';
+    }
+  } else {
+    // if dot is clicked, the current dot number is passed as 'direction'
+    images[direction - 1].className = 'highZ';
+    dots[direction - 1].className = 'selectedDot';
   }
 }
 
@@ -138,9 +58,9 @@ function imgSliderListener() {
     const parent = event.target.parentNode.getAttribute('class');
 
     if (parent === 'left' && event.target.nodeName === 'BUTTON') {
-      imgSliderPrev();
+      imgSlider('prev');
     } else if (parent === 'right' && event.target.nodeName === 'BUTTON') {
-      imgSliderNext();
+      imgSlider('next');
     }
   });
 
@@ -151,7 +71,7 @@ function imgSliderListener() {
 // eslint-disable-next-line no-plusplus
 function loop() {
   setTimeout(() => {
-    imgSliderNext();
+    imgSlider('next');
     loop();
   }, 6000);
 }
@@ -166,7 +86,7 @@ function dotsListen() {
     if (event.target.textContent === '' && parentClass === 'trackingDots') {
       // currentNum is the dot that is clicked, starting from 0.
       const currentNum = index + 1;
-      imgSliderDotClick(currentNum.toString());
+      imgSlider(currentNum);
     }
   });
 }
